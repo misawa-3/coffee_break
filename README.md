@@ -20,11 +20,13 @@
 - コーヒー器具や豆のレビューの共有
 - カフェ巡りや旅先でのコーヒー体験の共有
 
-
 ## 設計書
 後ほど作成
 
-##　開発環境
+## 実装機能リストURL
+https://docs.google.com/spreadsheets/d/1YZJP4rlTMHDm1Cnl9anHj4Icido-Jz4fCEWyikLzgGM/edit?usp=drive_link
+
+## 開発環境
 - OS : macOS Sonoma バージョン14.4
 - 言語 : HTML,CSS,Javascript,Ruby,SQL
 - フレームワーク : Ruby on Rails
