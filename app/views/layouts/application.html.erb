@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Coffee brealk</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <script src="https://kit.fontawesome.com/29d9f0d25f.js" crossorigin="anonymous"></script>
+  </head>
+  <body>
+    <header>
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <dir class="contaier"></dir>
+            <%= link_to "Coffee Break", '/', class: "navbar-brand" %>
+           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+           <span class="navbar-toggler-icon"></span>
+           </button>
+            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+              <ul class="navbar-nav ml-auto">
+                <% if user_signed_in? %>
+                  <li>
+                    <%= link_to " Home", '/', class: "fa-solid fa-house nav-link text-light" %>
+                  </li>
+                  <li>
+                    <%= link_to " Users", '/', class: "fa-solid fa-users nav-link text-light" %>
+                  </li>
+                  <li>
+                    <%= link_to " Books", '/', class: "fa-solid fa-book-open nav-link text-light" %>
+                  </li>
+                  <li>
+                    <%= link_to " Log out", destroy_user_session_path, method: :delete ,class: "fa-solid fa-right-from-bracket nav-link text-light" %>
+                  </li>
+                <% else %>
+                  <li>
+                    <%= link_to " Home", '/', class: "fa-solid fa-house nav-link text-light" %>
+                  </li>
+                  <li>
+                    <%= link_to " About", '/', class: "fa-solid fa-link nav-link text-light" %>
+                  </li>
+                  <li>
+                    <%= link_to " Sign up", new_user_registration_path, class: "fa-solid fa-user-plus nav-link text-light" %>
+                  </li>
+                  <li>
+                    <%= link_to " Log in", new_user_session_path, class: "fa-solid fa-right-to-bracket nav-link text-light" %>
+                  </li>
+                <% end %>
+              </ul>
+          </dir>
+        </dir>
+      </nav>
+    </header>
+    <main>
+    <p id="notice"><%= flash[:notice] %></p>
+  <%= yield %>
+    </main>
+    <footer>
+      <dir class="container mt-5">
+        <dir class="row">
+          <dir class="mx-auto">
+            <p>　</p>
+          </dir>
+        </dir>
+      </dir>
+    </footer>
+  </body>
+</html>
