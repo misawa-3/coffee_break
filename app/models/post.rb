@@ -1,29 +1,19 @@
 class Post < ApplicationRecord
-  has_one_attached :image  
+  has_one_attached :image
   belongs_to :user
-  
-  def new
-    @post = Post.new
-  end
-  
-  # 投稿データの保存
-  def create
-    @post = Post.new(post_params)
-    @post.user_id = current_user.id
-    @post.save
-    redirect_to post_path
-  end
-  def index
+
+  validates :content, presence: true
+  validates :image, presence: true
+
+  def get_image
+    unless image.attached?
+      file_path = Rails.root.join('app/assets/images/no_image.jpg')
+      image.attach(io: File.open(file_path), filename: 'default-image.jpg', content_type: 'image/jpeg')
+    end
+    image
   end
 
-  def show
+  def favorited_by?(user)
+    favorites.exists?(user_id: user.id)
   end
-  
-  # 投稿データのストロングパラメータ
-  private
-
-  def post_params
-    params.require(:post).permit(:content, :image)
-  end
-  
 end

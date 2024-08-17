@@ -1,2 +1,22 @@
-<h1>Posts#show</h1>
-<p>Find me in app/views/posts/show.html.erb</p>
+<div class="post-detail py-5 bg-light">
+  <div class="container">
+    <div class="card mx-auto mt-4 shadow-lg">
+      <%= image_tag @post.get_image, class:"card-img-top" %>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-sm-12 col-md-2">
+            <%= image_tag @post.user.get_profile_image(100, 100), class: "img-fluid rounded-circle" %>
+          </div>
+          <div class="col-sm-12 col-md-10">
+            <p class="card-title">本文：<%= @post.content %></p>
+            <span><i class="fa-solid fa-user"></i> By <%= @post.user.name %> ｜ </span>
+            <span><i class="fa-solid fa-calendar-days"></i> <%= @post.created_at.strftime('%Y/%m/%d') %> ｜ </span>
+            <% if @post.user == current_user %>
+              <span> ｜ </span><%= link_to "削除", post_path(@post), class:"text-dark", method: :delete %>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

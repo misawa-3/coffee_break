@@ -1,0 +1,17 @@
+<div class="profile-wrap">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6 text-center">
+        <%= image_tag @user.get_profile_image(100,100), class: "img-fluid rounded-circle" %>
+      </div>
+      <div class="col-md-6">
+        <h1><%= @user.name %></h1>
+        <%= link_to "プロフィールを編集", edit_user_registration_path, class: "btn btn-outline-dark common-btn edit-profile-btn" %>
+      </div>
+    </div>
+  </div>
+
+  <div class="container mt-4">
+    <%= render 'posts/list', posts: @posts %>
+  </div>
+</div>

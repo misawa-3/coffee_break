@@ -1,2 +1,25 @@
-<h1>Posts#new</h1>
-<p>Find me in app/views/posts/new.html.erb</p>
+<div class="container">
+  <div class="row no-gutters">
+    <div class="col-md-5 col-sm-10 mx-2 mx-sm-auto shadow-lg rounded px-0 my-5">
+      <h5 class="text-dark bg-light p-4 mb-0">投稿フォーム</h5>
+      <div class="form-body p-4">
+        <% if @post.errors.any? %>
+          <ul class="alert alert-danger" role="alert">
+            <h6 class="alert-heading">
+              <%= @post.errors.count %>件のエラーが発生しました
+            </h6>
+            <% @post.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        <% end %>
+        <%= form_with model: @post do |f| %>
+          <%= f.file_field :image, accept: "image/*", class: "w-100" %>
+          <%= f.text_area :content, class:"form-control", rows:"3", placeholder:"コメント" %>
+          <hr>
+          <%= f.submit '投稿', class:"btn btn-lg btn-block btn-info mt-4" %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
