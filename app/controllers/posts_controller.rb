@@ -14,7 +14,7 @@ class PostsController < ApplicationController
   end
 
   def index
-    @posts = Post.page(params[:page])
+    @posts = Post.order(created_at: :desc).page(params[:page])
   end
 
   def show
@@ -23,14 +23,23 @@ class PostsController < ApplicationController
 
   def destroy
     post = Post.find(params[:id])
+    @user = post.user
     post.destroy
-    redirect_to post_path
+    redirect_to user_path(@user)
   end
 
-  # 投稿データのストロングパラメータ
+
   private
+  
+  def correct_user
+    post = Post.find(params[:id])
+    if post.user != current_user
+      redirect_to user_path(current_user), alert: "他のユーザーの投稿を削除することはできません。"
+    end
+  end
 
   def post_params
     params.require(:post).permit(:user_id, :content, :image)
   end
+
 end

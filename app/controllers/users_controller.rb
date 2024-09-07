@@ -2,7 +2,7 @@ class UsersController < ApplicationController
 
   def show
     @user = User.find(params[:id])
-    @posts = @user.posts.page(params[:page])
+    @posts = @user.posts.order(created_at: :desc).page(params[:page])
   end
 
   def edit
@@ -15,9 +15,36 @@ class UsersController < ApplicationController
     redirect_to user_path(@user)
   end
 
+  def update_user_name
+    @user = current_user
+    if @user.update(user_name_params)
+      redirect_to user_path(@user), notice: 'ユーザー名が更新されました'
+    else
+      render :edit
+    end
+  end
+
+  def update_user_image
+    @user = current_user
+    if @user.update(user_image_params)
+      redirect_to user_path(@user), notice: 'プロフィール画像が更新されました'
+    else
+      render :edit
+    end
+  end
+
   private
 
   def user_params
     params.require(:user).permit(:name, :profile_image, :header_image)
   end
+  
+  def user_name_params
+    params.require(:user).permit(:name)
+  end
+
+  def user_image_params
+    params.require(:user).permit(:profile_image)
+  end
+  
 end
