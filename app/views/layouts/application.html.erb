@@ -5,9 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <%= csrf_meta_tags %>
   <%= csp_meta_tag %>
-  <%= stylesheet_pack_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
   <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
   <script src="https://kit.fontawesome.com/29d9f0d25f.js" crossorigin="anonymous"></script>
+</head>
 </head>
 <body>
   <header>
@@ -21,29 +22,28 @@
           <ul class="navbar-nav ml-auto">
             <% if user_signed_in? %>
               <li class="nav-item">
-                <%= link_to "Post", new_post_path, class: "fa-solid fa-house nav-link text-light" %>
+                <%= link_to "投稿", new_post_path, class: "fa-solid fa-house nav-link text-light" %>
               </li>
               <li class="nav-item">
-                <%= link_to "Users", user_path(current_user.id), class: "fa-solid fa-users nav-link text-light" %>
+                <%= link_to "投稿一覧", posts_path, class: "fa-solid fa-book-open nav-link text-light" %>
               </li>
               <li class="nav-item">
-                <%= link_to "Posts", posts_path, class: "fa-solid fa-book-open nav-link text-light" %>
+                <%= link_to "ログアウト", destroy_user_session_path, method: :delete, class: "fa-solid fa-right-from-bracket nav-link text-light" %>
               </li>
               <li class="nav-item">
-                <%= link_to "Log out", destroy_user_session_path, method: :delete, class: "fa-solid fa-right-from-bracket nav-link text-light" %>
+                <%= link_to user_path(current_user), class: "nav-link text-light d-flex align-items-center" do %>
+                  <%= image_tag current_user.get_profile_image(20, 20), class: "rounded-circle me-2" %>
+                <% end %>
               </li>
             <% else %>
               <li class="nav-item">
                 <%= link_to "Home", '/', class: "fa-solid fa-house nav-link text-light" %>
               </li>
               <li class="nav-item">
-                <%= link_to "About", '/', class: "fa-solid fa-link nav-link text-light" %>
+                <%= link_to "サインアップ", new_user_registration_path, class: "fa-solid fa-user-plus nav-link text-light" %>
               </li>
               <li class="nav-item">
-                <%= link_to "Sign up", new_user_registration_path, class: "fa-solid fa-user-plus nav-link text-light" %>
-              </li>
-              <li class="nav-item">
-                <%= link_to "Log in", new_user_session_path, class: "fa-solid fa-right-to-bracket nav-link text-light" %>
+                <%= link_to "ログイン", new_user_session_path, class: "fa-solid fa-right-to-bracket nav-link text-light" %>
               </li>
             <% end %>
           </ul>
