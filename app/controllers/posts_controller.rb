@@ -1,6 +1,7 @@
 class PostsController < ApplicationController
   def new
     @post = Post.new
+    @post_comment = PostComment.new
   end
 
   def create
@@ -13,12 +14,31 @@ class PostsController < ApplicationController
     end
   end
 
+  
   def index
-    @posts = Post.order(created_at: :desc).page(params[:page])
+  @posts = Post.order(created_at: :desc).page(params[:page])
+
+    if params[:query].present? && params[:match_type].present?
+      match_type = params[:match_type]
+      query = params[:query]
+  
+      if params[:user_id].present?
+        @posts = @posts.where(user_id: params[:user_id])
+      end
+  
+      if match_type == 'partial'
+        @posts = @posts.where('title LIKE ? OR content LIKE ?', "%#{query}%", "%#{query}%")
+      elsif match_type == 'exact'
+        @posts = @posts.where('title = ? OR content = ?', query, query)
+      end
+    end
+  
+    @posts = @posts.page(params[:page])
   end
 
   def show
     @post = Post.find(params[:id])
+    @post_comment = PostComment.new
   end
 
   def destroy

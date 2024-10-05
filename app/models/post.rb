@@ -1,6 +1,8 @@
 class Post < ApplicationRecord
   has_one_attached :image
   belongs_to :user
+  has_many :post_comments, dependent: :destroy
+  has_many :favorites, dependent: :destroy
 
   validates :content, presence: true
   validates :image, presence: true
@@ -12,8 +14,19 @@ class Post < ApplicationRecord
     end
     image
   end
-
+  
   def favorited_by?(user)
     favorites.exists?(user_id: user.id)
   end
+
+  def self.looks(search, word)
+    if search == "perfect_match"
+      @posts = Post.where("content LIKE ?", "#{word}")
+    elsif search == "partial_match"
+      @posts = Post.where("content LIKE ?", "%#{word}%")
+    else
+      @posts = Post.all
+    end
+  end
+
 end

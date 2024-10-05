@@ -1,0 +1,12 @@
+<ul class="list-group">
+  <% @users.each do |user| %>
+    <li class="list-group-item d-flex align-items-center mb-3">
+      <%= link_to user_path(user), class: "d-flex align-items-center w-100" do %>
+        <%= image_tag user.get_profile_image(100, 100), class: "rounded-circle me-3", alt: "#{user.name}'s profile picture" %>
+        <div>
+          <span class="text-dark fw-bold"><%= user.name %></span>
+        </div>
+      <% end %>
+    </li>
+  <% end %>
+</ul>
