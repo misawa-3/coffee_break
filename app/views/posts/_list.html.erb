@@ -11,8 +11,29 @@
           </div>
           <div class="col-9">
             <p class="card-text">説明：<%= post.content %></p>
-            <span><i class="fa-solid fa-user"></i> By <%= link_to post.user.name, user_path(post.user), class: "text-dark" %> ｜ </span>
-            <span><%= link_to "#{post.post_comments.count} コメント", post_path(post.id), class:"text-dark" %></span>
+            <span>
+              <%= link_to user_path(post.user), class: "text-dark" do %>
+                <i class="fa-regular fa-user"></i> <%= post.user.name %>
+              <% end %>
+            </span>
+            <span> ｜ </span>
+            <span>
+              <%= link_to post_path(post.id), class: "text-dark" do %>
+                <i class="fa-regular fa-message"></i> <%= post.post_comments.count %>
+              <% end %>
+            </span>
+            <span> ｜ </span>
+            <span>
+              <% if post.favorited_by?(current_user) %>
+                <%= link_to(post_favorite_path(post), class: "text-dark", method: :delete) do %>
+                  <i class="fa-solid fa-heart"></i> <%= post.favorites.count %>
+                <% end %>
+              <% else %>
+                <%= link_to(post_favorite_path(post), class: "text-dark", method: :post) do %>
+                  <i class="fa-regular fa-heart"></i> <%= post.favorites.count %>
+                <% end %>
+              <% end %>
+            </span>
           </div>
         </div>
       </div>

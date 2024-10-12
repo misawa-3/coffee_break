@@ -1,31 +1,32 @@
 <div class="profile-wrap">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-6 text-center">
+  <div class="container mt-4">
+    <div class="row justify-content-center">
+      <div class="col-md-4 text-center">
         <%= image_tag @user.get_profile_image(100, 100), class: "img-fluid rounded-circle" %>
       </div>
-      <div class="col-md-6">
+      <div class="col-md-4 text-center">
         <h1><%= @user.name %></h1>
 
         <div>
           <%= link_to "#{@user.following.count} フォロー", following_user_path(@user), class: "text-dark" %> |
           <%= link_to "#{@user.followers.count} フォロワー", followers_user_path(@user), class: "text-dark" %>
         </div>
-
-        <% if @user == current_user %>
-          <%= link_to "プロフィールを編集", edit_user_registration_path, class: "btn btn-outline-dark common-btn edit-profile-btn" %>
-        <% else %>
-          <% if current_user.following?(@user) %>
-            <%= button_to "フォロー解除", relationship_path(current_user.active_relationships.find_by(followed_id: @user.id)), method: :delete, class: "btn btn-danger" %>
+        <% if user_signed_in? %>
+          <% if @user == current_user %>
+            <%= link_to "プロフィールを編集", edit_user_registration_path, class: "btn btn-outline-dark common-btn edit-profile-btn" %>
           <% else %>
-            <%= button_to "フォロー", relationships_path(followed_id: @user.id), method: :post, class: "btn btn-primary" %>
+            <% if current_user.following?(@user) %>
+              <%= button_to "フォロー解除", relationship_path(current_user.active_relationships.find_by(followed_id: @user.id)), method: :delete, class: "btn btn-danger" %>
+            <% else %>
+              <%= button_to "フォロー", relationships_path(followed_id: @user.id), method: :post, class: "btn btn-primary" %>
+            <% end %>
           <% end %>
         <% end %>
       </div>
     </div>
   </div>
 
-  <div class="container mt-12">
+  <div class="container mt-4">
     <%= render 'posts/list', posts: @posts %>
   </div>
 </div>

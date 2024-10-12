@@ -1,14 +1,19 @@
-  <div class="container-fluid bg-01 text-center">
-    <div class="row py-5">
-      <div class="col-sm-6 offset-sm-3 text-black">
-        <h1>Coffee Breakへようこそ！</h1>
-        <p>以下説明</p>
-      </div>
-    </div>
-    <div class="row justify-content-center mt-4">
-      <div class="col-sm-4">
-        <%= link_to "サインアップ", new_user_registration_path, class: "btn btn-outline-light btn-custom" %>
-        <%= link_to "ログイン", new_user_session_path, class: "btn btn-outline-light btn-custom" %>
-      </div>
+<div class="container-fluid bg-01 text-center" style="background-image: url(<%= asset_path('bg-01.jpg') %>); background-size: cover; background-position: center; min-height: 300px;">
+  <div class="row h-100 justify-content-center align-items-center"> <!-- 高さ100%で中央に配置 -->
+    <div class="col-sm-6 text-light mt-3">
+      <h1>Coffee Breakへようこそ！</h1>
+      <p>
+        目覚めの１杯、作業の合間の１杯、休日を彩る１杯、カフェでの１杯<br>
+        さまざまな１杯の投稿から、次の１杯が楽しみになるインスピレーションを紡ぐ<br>
+        コーヒー特化のSNS
+      </p>
     </div>
   </div>
+
+  <div class="row justify-content-center mt-4">
+    <div class="col-auto"> <!-- 自動幅を設定 -->
+      <%= link_to "サインアップ", new_user_registration_path, class: "btn btn-outline-light btn-custom mx-2" %>
+      <%= link_to "ログイン", new_user_session_path, class: "btn btn-outline-light btn-custom mx-2" %>
+    </div>
+  </div>
+</div>
