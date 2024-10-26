@@ -43,6 +43,13 @@
                   <%= image_tag current_user.get_profile_image(20, 20), class: "rounded-circle me-2" %>
                 <% end %>
               </li>
+            <% elsif admin_signed_in? %>
+              <li class="nav-item">
+                <%= link_to "管理者用ユーザー一覧", admin_users_path, class: "fa-solid fa-users nav-link text-light" %>
+              </li>
+              <li class="nav-item">
+                <%= link_to "ログアウト", destroy_admin_session_path, method: :delete, class: "fa-solid fa-right-from-bracket nav-link text-light" %>
+              </li>
             <% else %>
               <li class="nav-item">
                 <%= link_to "Home", '/', class: "fa-solid fa-house nav-link text-light" %>

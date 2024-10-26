@@ -2,7 +2,9 @@ Rails.application.routes.draw do
   devise_for :admins, path: 'admin', controllers: {
     sessions: 'admin/sessions'
   }
+  
   devise_for :users
+  
   root to: "homes#top"
 
   patch 'users/update_user_name', to: 'users#update_user_name', as: :update_user_name

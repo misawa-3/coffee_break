@@ -1,4 +1,5 @@
 class FavoritesController < ApplicationController
+  before_action :authenticate_user!
 
   def index
     @favorites = current_user.favorites.includes(:post).order(created_at: :desc).map(&:post).uniq
