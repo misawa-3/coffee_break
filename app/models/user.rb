@@ -1,6 +1,7 @@
 class User < ApplicationRecord
   # Devise modules
   devise :database_authenticatable, :registerable, :recoverable, :rememberable, :validatable
+  validates :email, presence: true, uniqueness: { case_sensitive: false }
 
   # Associations
   has_one_attached :profile_image
@@ -51,6 +52,12 @@ class User < ApplicationRecord
 
   def status_i18n
     I18n.t("activerecord.attributes.user.statuses.#{status}")
+  end
+
+  def deactivate
+    current_user.deactivate! # アカウントを非有効化
+    sign_out(current_user)     # 非有効化後にログアウト
+    redirect_to root_path, notice: 'アカウントが非有効化されました。'
   end
 
   def deactivate!

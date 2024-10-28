@@ -48,6 +48,10 @@ class UsersController < ApplicationController
     render 'show_follow'
   end
   
+  def deactivate
+    current_user.deactivate!
+    redirect_to root_path, notice: 'アカウントが非有効化されました。'
+  end
 
   private
 
