@@ -11,8 +11,15 @@ Rails.application.routes.draw do
   patch 'users/update_user_image', to: 'users#update_user_image', as: :update_user_image
   
   namespace :admin do
-    resources :users, only: [:index, :show, :destroy]
+    resources :users do
+      member do
+        post :reactivate  # ここでルートを定義
+        post :deactivate
+        post :freeze
+      end
+    end
   end
+
   
   get "search" => "searches#search"
   

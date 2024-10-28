@@ -1,19 +1,29 @@
-<h1>ユーザー一覧</h1>
-<table>
-  <thead>
-    <tr>
-      <th>ID</th>
-      <th>Email</th>
-      <th>詳細</th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @users.each do |user| %>
-      <tr>
-        <td><%= user.id %></td>
-        <td><%= user.email %></td>
-        <td><%= link_to '詳細', admin_user_path(user) %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+<div class="profile-wrap">
+  <div class="container">
+    <ul class="list-group">
+      <% @users.each do |user| %>
+        <li class="list-group-item d-flex align-items-center mb-3">
+          <!-- ユーザーのプロフィール画像 -->
+          <%= link_to image_tag(user.get_profile_image(100, 100), class: "rounded-circle me-3"), user_path(user) %>
+          
+          <!-- ユーザー名 -->
+          <%= link_to user.name, user_path(user), class: "h5 text-dark me-3" %> 
+
+          <!-- メールアドレスとステータスの表示 -->
+          <span class="text-muted me-3"><%= user.email %></span>
+          <span class="badge bg-secondary me-3"><%= user.status_i18n %></span>
+
+          <!-- アクションボタン -->
+          <div class="ms-auto">
+            <% if user.active? %>
+              <%= link_to '退会', deactivate_admin_user_path(user), method: :post, class: "btn btn-warning btn-sm me-2" %>
+              <%= link_to '凍結', freeze_admin_user_path(user), method: :post, class: "btn btn-danger btn-sm" %>
+            <% elsif user.deactivated? || user.frozen? %>
+              <%= link_to '再開', reactivate_admin_user_path(user), method: :post, class: "btn btn-success btn-sm" %>
+            <% end %>
+          </div>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+</div>

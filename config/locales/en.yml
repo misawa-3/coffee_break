@@ -30,4 +30,10 @@
 # available at https://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  activerecord:
+    attributes:
+      user:
+        statuses:
+          active: "Active" # Add this line
+          deactivated: "Deactivated"
+          frozen: "Frozen"

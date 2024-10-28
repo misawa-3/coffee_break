@@ -6,7 +6,7 @@
         <div class="mx-auto text-center">
           <p>メールアドレスと<br>パスワードを入力してください。</p>
         </div>
-        <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+        <%= form_with model: resource, url: session_path(resource_name), local: true do |f| %>
           <div class="input-group mb-3">
             <div class="input-group-prepend">
               <span class="input-group-text"><i class="fa-solid fa-envelope"></i></span>
