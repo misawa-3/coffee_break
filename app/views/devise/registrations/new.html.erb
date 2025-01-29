@@ -6,17 +6,17 @@
         <div class="mx-auto text-center">
           <p>名前・メールアドレス・パスワードを入力してください。</p>
         </div>
-        <% if @user.errors.any? %>
+        <% if resource.errors.any? %>
           <ul class="alert alert-danger text-left" role="alert">
             <h6 class="alert-heading">
-              <%= @user.errors.count %>件のエラーが発生しました
+              <%= resource.errors.count %>件のエラーが発生しました
             </h6>
-            <% @user.errors.full_messages.each do |message| %>
+            <% resource.errors.full_messages.each do |message| %>
               <li><%= message %></li>
             <% end %>
           </ul>
         <% end %>
-        <%= form_with model: @user, url: user_registration_path do |f| %>
+        <%= form_with model: resource, url: user_registration_path do |f| %>
           <div class="input-group mb-3">
             <div class="input-group-prepend">
               <span class="input-group-text" aria-hidden="true"><i class="fa-solid fa-user"></i></span>
